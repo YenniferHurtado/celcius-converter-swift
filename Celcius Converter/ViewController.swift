@@ -1,20 +1,34 @@
-//
-//  ViewController.swift
-//  Celcius Converter
-//
-//  Created by Macbook Air 13 on 3/2/20.
-//  Copyright © 2020 Macbook Air 13. All rights reserved.
-//
+
 
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    @IBOutlet weak var celciusText: UITextField!
+    @IBOutlet weak var fahrenheitText: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        let tagRecognizer: UITapGestureRecognizer =
+            UITapGestureRecognizer(
+            target: self,
+            action: #selector(dismissKeyboard))
+        
+        self.view.addGestureRecognizer(tagRecognizer)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 
-
+    //ºf = (c *  9/5) + 32
+    @IBAction func convertButton(_ sender: Any) {
+        let celcius = (self.celciusText.text! as NSString).doubleValue
+        let convertion = (celcius * 9/5) + 32
+        
+        self.fahrenheitText.text = String(convertion)
+    }
+    
 }
 
